@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HealthBar : MonoBehaviour
 {
@@ -8,14 +9,12 @@ public class HealthBar : MonoBehaviour
     [SerializeField] private float _health;
     [SerializeField] private float _step;
     [SerializeField] private float _speed;
+    [SerializeField] private Text _text;
+    [SerializeField] private Slider _slider;
 
     private float _minHealth = 0;
     private float _floatHealth;
     private string _infoHealth;
-
-    public float FloatHealth => _floatHealth;
-    public float MaxHealth => _maxHealth;
-    public string InfoHealth => _infoHealth;
 
     public void Start()
     {
@@ -33,6 +32,12 @@ public class HealthBar : MonoBehaviour
             _health = _minHealth;
     }
 
+    public void Update()
+    {
+        ChangeFloatHealth();
+        _slider.value = _floatHealth / _maxHealth;
+    }
+
     public void ChangeHealth(int direction)
     {
         float newValueHealth = _health + _step * direction;
@@ -46,5 +51,6 @@ public class HealthBar : MonoBehaviour
         if(_floatHealth != _health)
             _floatHealth = Mathf.MoveTowards(_floatHealth, _health, _speed * Time.deltaTime);
             _infoHealth = _health.ToString() + "/" + _maxHealth.ToString();
+            _text.text = _infoHealth;
     }
 }
