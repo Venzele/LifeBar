@@ -5,52 +5,31 @@ using UnityEngine.UI;
 
 public class HealthBar : MonoBehaviour
 {
-    [SerializeField] private float _maxHealth;
-    [SerializeField] private float _health;
-    [SerializeField] private float _step;
+    [SerializeField] private Character _character;
+    [SerializeField] private Slider _slider;
     [SerializeField] private float _speed;
     [SerializeField] private Text _text;
-    [SerializeField] private Slider _slider;
 
-    private float _minHealth = 0;
     private float _floatHealth;
     private string _infoHealth;
 
-    public void Start()
+    private void Start()
     {
-        _floatHealth = _health;
+        _floatHealth = _character.Health;
     }
 
-    public void OnValidate()
+    private void Update()
     {
-        if (_maxHealth <= _minHealth)
-            _maxHealth = _minHealth + 1;
-
-        if (_health > _maxHealth)
-            _health = _maxHealth;
-        else if (_health < _minHealth)
-            _health = _minHealth;
+        ShowHealth();
+        _slider.value = _floatHealth / _character.MaxHealth;
     }
 
-    public void Update()
+    public void ShowHealth()
     {
-        ChangeFloatHealth();
-        _slider.value = _floatHealth / _maxHealth;
-    }
+        if (_floatHealth != _character.Health)
+            _floatHealth = Mathf.MoveTowards(_floatHealth, _character.Health, _speed * Time.deltaTime);
 
-    public void ChangeHealth(int direction)
-    {
-        float newValueHealth = _health + _step * direction;
-
-        if(newValueHealth >= _minHealth && newValueHealth <= _maxHealth)
-            _health = newValueHealth;
-    }
-
-    public void ChangeFloatHealth()
-    {
-        if(_floatHealth != _health)
-            _floatHealth = Mathf.MoveTowards(_floatHealth, _health, _speed * Time.deltaTime);
-            _infoHealth = _health.ToString() + "/" + _maxHealth.ToString();
-            _text.text = _infoHealth;
+        _infoHealth = _character.Health.ToString() + "/" + _character.MaxHealth.ToString();
+        _text.text = _infoHealth;
     }
 }
