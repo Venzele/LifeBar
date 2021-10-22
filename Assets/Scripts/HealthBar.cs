@@ -26,9 +26,7 @@ public class HealthBar : MonoBehaviour
 
     public void ShowHealth()
     {
-        if (_floatHealth != _character.Health)
-            _floatHealth = Mathf.MoveTowards(_floatHealth, _character.Health, _speed * Time.deltaTime);
-
+        _floatHealth = Mathf.MoveTowards(_floatHealth, _character.Health, _speed * Time.deltaTime);
         _infoHealth = _character.Health.ToString() + "/" + _character.MaxHealth.ToString();
         _text.text = _infoHealth;
     }
