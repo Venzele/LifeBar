@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Character : MonoBehaviour
 {
     [SerializeField] private float _maxHealth;
     [SerializeField] private float _health;
+    [SerializeField] private UnityEvent _changedHealth;
 
     private float _minHealth = 0;
 
@@ -23,11 +25,25 @@ public class Character : MonoBehaviour
             _health = _minHealth;
     }
 
-    public void ChangeHealth(float value)
+    public void TakeHeal(float heal)
     {
-        float newValueHealth = _health + value;
+        float newValueHealth = _health + heal;
 
-        if(newValueHealth >= _minHealth && newValueHealth <= _maxHealth)
+        if(newValueHealth <= _maxHealth)
+        {
             _health = newValueHealth;
+            _changedHealth?.Invoke();
+        }
+    }
+
+    public void TakeDamage(float damage)
+    {
+        float newValueHealth = _health - damage;
+
+        if (newValueHealth >= _minHealth)
+        {
+            _health = newValueHealth;
+            _changedHealth?.Invoke();
+        }
     }
 }

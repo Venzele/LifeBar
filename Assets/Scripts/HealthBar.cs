@@ -10,23 +10,42 @@ public class HealthBar : MonoBehaviour
     [SerializeField] private float _speed;
     [SerializeField] private Text _text;
 
-    private float _floatHealth;
     private string _infoHealth;
+    private Coroutine _changeHealth;
 
     private void Start()
     {
-        _floatHealth = _character.Health;
+        _slider.maxValue = _character.MaxHealth;
+        _slider.value = _character.Health;
+        _infoHealth = _character.Health.ToString() + "/" + _character.MaxHealth.ToString();
+        _text.text = _infoHealth;
     }
 
-    private void Update()
+    private IEnumerator ChangeSmoothlyHealth()
     {
-        ShowHealth();
-        _slider.value = _floatHealth / _character.MaxHealth;
+        while (_slider.value != _character.Health)
+        {
+            _slider.value = Mathf.MoveTowards(_slider.value, _character.Health, _speed * Time.deltaTime);
+            yield return null;
+        }
     }
 
-    public void ShowHealth()
+    private void StopChangeSmoothlyHealth()
     {
-        _floatHealth = Mathf.MoveTowards(_floatHealth, _character.Health, _speed * Time.deltaTime);
+        if(_changeHealth != null)
+        {
+            StopCoroutine(_changeHealth);
+            _changeHealth = null;
+        }
+    }
+
+    public void ShowSmoothlyHealth()
+    {
+        StopChangeSmoothlyHealth();
+
+        if (_changeHealth == null)
+            _changeHealth = StartCoroutine(ChangeSmoothlyHealth());
+        
         _infoHealth = _character.Health.ToString() + "/" + _character.MaxHealth.ToString();
         _text.text = _infoHealth;
     }

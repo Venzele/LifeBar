@@ -220,6 +220,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHealth: 100
   _health: 50
+  _changedHealth:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 324909360}
+        m_TargetAssemblyTypeName: HealthBar, Assembly-CSharp
+        m_MethodName: ShowSmoothlyHealth
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &324909357
 GameObject:
   m_ObjectHideFlags: 0
@@ -308,7 +323,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.33
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -326,7 +341,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _character: {fileID: 319970171}
   _slider: {fileID: 324909359}
-  _speed: 30
+  _speed: 20
   _text: {fileID: 345383151}
 --- !u!1 &345383149
 GameObject:
@@ -980,7 +995,6 @@ GameObject:
   - component: {fileID: 1434810686}
   - component: {fileID: 1434810685}
   - component: {fileID: 1434810684}
-  - component: {fileID: 1434810687}
   m_Layer: 5
   m_Name: MinusHP
   m_TagString: Untagged
@@ -1052,15 +1066,15 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1434810687}
-        m_TargetAssemblyTypeName: Button, Assembly-CSharp
-        m_MethodName: ChangeValueHealth
-        m_Mode: 3
+      - m_Target: {fileID: 319970171}
+        m_TargetAssemblyTypeName: Character, Assembly-CSharp
+        m_MethodName: TakeDamage
+        m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: -1
-          m_FloatArgument: 0
+          m_IntArgument: 0
+          m_FloatArgument: 10
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
@@ -1102,20 +1116,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1434810682}
   m_CullTransparentMesh: 1
---- !u!114 &1434810687
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1434810682}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e6ce84b3f3b02e46a3cf5ebd1a61aa7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _character: {fileID: 319970171}
-  _step: 10
 --- !u!1 &1735596319
 GameObject:
   m_ObjectHideFlags: 0
@@ -1373,7 +1373,6 @@ GameObject:
   - component: {fileID: 2087514110}
   - component: {fileID: 2087514109}
   - component: {fileID: 2087514108}
-  - component: {fileID: 2087514111}
   m_Layer: 5
   m_Name: PlusHP
   m_TagString: Untagged
@@ -1445,15 +1444,15 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2087514111}
-        m_TargetAssemblyTypeName: Button, Assembly-CSharp
-        m_MethodName: ChangeValueHealth
-        m_Mode: 3
+      - m_Target: {fileID: 319970171}
+        m_TargetAssemblyTypeName: Character, Assembly-CSharp
+        m_MethodName: TakeHeal
+        m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
-          m_FloatArgument: 0
+          m_IntArgument: 0
+          m_FloatArgument: 10
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
@@ -1495,20 +1494,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2087514106}
   m_CullTransparentMesh: 1
---- !u!114 &2087514111
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2087514106}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e6ce84b3f3b02e46a3cf5ebd1a61aa7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _character: {fileID: 319970171}
-  _step: 10
 --- !u!1 &2138184474
 GameObject:
   m_ObjectHideFlags: 0
