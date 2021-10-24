@@ -13,6 +13,16 @@ public class HealthBar : MonoBehaviour
     private string _infoHealth;
     private Coroutine _changeHealth;
 
+    private void OnEnable()
+    {
+        _character.ChangedHealth += ShowChangeHealth;
+    }
+
+    private void OnDisable()
+    {
+        _character.ChangedHealth -= ShowChangeHealth;  
+    }
+
     private void Start()
     {
         _slider.maxValue = _character.MaxHealth;
@@ -30,7 +40,7 @@ public class HealthBar : MonoBehaviour
         }
     }
 
-    private void StopChangeSmoothlyHealth()
+    private void StopChangeHealth()
     {
         if(_changeHealth != null)
         {
@@ -39,9 +49,9 @@ public class HealthBar : MonoBehaviour
         }
     }
 
-    public void ShowSmoothlyHealth()
+    public void ShowChangeHealth()
     {
-        StopChangeSmoothlyHealth();
+        StopChangeHealth();
 
         if (_changeHealth == null)
             _changeHealth = StartCoroutine(ChangeSmoothlyHealth());
