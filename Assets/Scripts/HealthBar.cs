@@ -49,7 +49,7 @@ public class HealthBar : MonoBehaviour
         }
     }
 
-    public void ShowChangeHealth()
+    private void ShowChangeHealth()
     {
         StopChangeHealth();
 

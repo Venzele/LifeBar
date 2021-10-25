@@ -17,18 +17,27 @@ public class Character : MonoBehaviour
 
     private void OnValidate()
     {
+        if (_maxHealth <= _minHealth)
+            _maxHealth = _minHealth + 1;
+
         _health = Mathf.Clamp(_health, _minHealth, _maxHealth);
     }
 
     public void TakeHeal(float heal)
     {
-        _health = Mathf.Clamp(_health + heal, _minHealth, _maxHealth);
-        ChangedHealth?.Invoke();
+        if (heal > 0)
+        {
+            _health = Mathf.Clamp(_health + heal, _minHealth, _maxHealth);
+            ChangedHealth?.Invoke();
+        }
     }
 
     public void TakeDamage(float damage)
     {
-        _health = Mathf.Clamp(_health - damage, _minHealth, _maxHealth);
-        ChangedHealth?.Invoke();
+        if (damage > 0)
+        {
+            _health = Mathf.Clamp(_health - damage, _minHealth, _maxHealth);
+            ChangedHealth?.Invoke();
+        }
     }
 }
